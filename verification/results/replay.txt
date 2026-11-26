@@ -1,0 +1,2 @@
+300 exact mixtures and 2400 fixed-model comparisons checked.
+Eight active row selections and 13 worked mixtures checked exactly.

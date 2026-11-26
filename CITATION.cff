@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: "Cite this version of the research release."
+title: "Subgradient dominance under state-rectangular transition uncertainty"
+authors:
+  - name: "DannyExperiments"
+type: software
+version: "1.0.0"
+date-released: 2026-11-27
+repository-code: "https://github.com/DannyExperiments/state-rectangular-subgradient-dominance"
+keywords:
+  - "robust Markov decision processes"
+  - "state rectangularity"
+  - "subgradient dominance"
+  - "discounted occupancy"
+  - "policy optimization"
+  - "Frank\u2013Wolfe gap"
+doi: "10.5281/zenodo.24572581"
+url: "https://doi.org/10.5281/zenodo.24572581"
+preferred-citation:
+  type: software
+  title: "Subgradient dominance under state-rectangular transition uncertainty"
+  authors:
+    - name: "DannyExperiments"
+  version: "1.0.0"
+  date-released: 2026-11-27
+  doi: "10.5281/zenodo.24572581"
+  url: "https://doi.org/10.5281/zenodo.24572581"
+  repository-code: "https://github.com/DannyExperiments/state-rectangular-subgradient-dominance"

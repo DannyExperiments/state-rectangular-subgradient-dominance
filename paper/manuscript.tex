@@ -1,0 +1,111 @@
+\documentclass[11pt]{amsart}
+\usepackage[T1]{fontenc}
+\usepackage[margin=0.92in]{geometry}
+\usepackage{amssymb}
+\DeclareFontShape{OMX}{cmex}{m}{n}{<->cmex10}{}
+\DeclareMathSizes{8}{8}{8}{8}
+\DeclareMathSizes{9}{9}{8}{8}
+\DeclareMathSizes{10.95}{10.95}{8}{8}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={Subgradient dominance under state-rectangular transition uncertainty}}
+\newtheorem{theorem}{Theorem}
+\title{Subgradient dominance under state-rectangular transition uncertainty}
+\date{27 November 2026}
+
+\begin{document}
+\begin{abstract}
+For a finite discounted Markov decision process with fixed costs, compact state-rectangular transition uncertainty and a full-support initial law, the robust return satisfies subgradient dominance. The bound holds for every direct-policy Fr\'echet subgradient and hence also for their minimum Frank--Wolfe gap. The proof represents a convex combination of active gradients as the gradient of one rowwise convexified kernel, with weights determined by discounted state occupancies.
+\end{abstract}
+\maketitle
+
+\section{Setting and result}
+Kitamura, Ghosh, Ayoub, Chu and Szepesv\'ari~\cite[\S5]{K} ask whether state-rectangular robust Markov decision processes satisfy subgradient dominance. We treat the case of fixed costs, with finite states \(S\) and actions \(A\), costs \(c(s,a)\in[0,1]\), discount \(0\leq\gamma<1\), and full-support initial law \(\mu\) on \(S\). The stationary randomized policy set is \(\Pi=\prod_{s\in S}\Delta(A)\). The nonempty compact transition set is \(K=\prod_{s\in S}K_s\), with \(K_s\subseteq\Delta(S)^A\). Thus \(K_s\) may couple all action transitions at state \(s\). Convexity of \(K_s\) is unnecessary.
+
+Write \(c_\pi(s)=\sum_a\pi(a\mid s)c(s,a)\) and \(P_\pi(t\mid s)=\sum_a\pi(a\mid s)P(t\mid s,a)\). For any kernel \(P\) let \(v_P^\pi=(I-\gamma P_\pi)^{-1}c_\pi\), \(J_P(\pi)=\mu^\top v_P^\pi\) and \(J(\pi)=\max_{P\in K}J_P(\pi)\). We take the direct-policy ambient Fr\'echet subdifferential, with the smooth branches given by the same resolvent formula on an open neighborhood of a feasible policy. For any fixed feasible policy, the nearby formula is well defined simultaneously for all \(P\in K\): at the policy, \(\|\gamma P_\pi\|_\infty=\gamma<1\), and a small perturbation of the policy coordinates changes the norm by at most \(\gamma\max_s\sum_a|\Delta\pi(a\mid s)|\). This gives a common open neighborhood and jointly continuous branch derivatives. This convention yields exactly the policy-coordinate formula of~\cite[Lemma~2.1]{K}.
+
+\begin{theorem}
+For every \(\pi\in\Pi\) and every \(g\in\partial J(\pi)\),
+\[
+ J(\pi)-\min_{\pi'\in\Pi}J(\pi')
+ \leq
+ \frac{\max_{\pi'\in\Pi}\langle\pi-\pi',g\rangle}
+      {(1-\gamma)\min_{s\in S}\mu(s)}.
+\]
+In particular the same bound holds with the minimum of the numerator over \(g\in\partial J(\pi)\), as in~\cite[Definition~3.1]{K}.
+\end{theorem}
+
+\section{Active kernels have a common value}
+Fix \(\pi\). Its robust Bellman operator is
+\[
+ (Tv)(s)=c_\pi(s)+\gamma\max_{p\in K_s}\sum_{a}\pi(a\mid s)p_a^\top v.
+\]
+It is monotone and contracts the sup norm with factor \(\gamma\). At its fixed point \(V\), choose an attaining row independently in each state. The resulting kernel lies in \(K\) and has value \(V\). For every other \(P\in K\), the ordinary Bellman update at \(V\) is at most \(V\). Its iterates descend to \(v_P^\pi\), so \(v_P^\pi\leq V\) componentwise. Consequently \(J(\pi)=\mu^\top V\). If \(P\) is active in the maximum at \(\pi\), the strict positivity of every \(\mu(s)\) forces \(v_P^\pi=V\).
+
+Put \(K'=\prod_s\operatorname{conv}K_s\). The convex hulls of the rows are compact in finite dimensions. For each feasible policy the statewise maximization above has the same value over \(K_s\) and its convex hull because the expression is linear in the whole row. Thus the robust objectives induced by \(K\) and \(K'\) agree on \(\Pi\).
+
+\section{A kernel for each subgradient}
+The smooth maximum rule~\cite[Lemma~2.1]{K} writes an arbitrary \(g\in\partial J(\pi)\) as a finite convex combination \(\sum_i\lambda_i\nabla J_{P_i}(\pi)\) with \(P_i\in K\) active. For fixed \(P\), define the normalized discounted state occupancy
+\[
+ d_P^\pi(s)=(1-\gamma)\sum_{t=0}^{\infty}\gamma^t
+                     \Pr_{\mu,\pi,P}(S_t=s).
+\]
+Differentiating \((I-\gamma P_\pi)v_P^\pi=c_\pi\) coordinatewise gives
+\[
+ (\nabla J_P(\pi))(s,a)=\frac{d_P^\pi(s)}{1-\gamma}
+                       \big[c(s,a)+\gamma P(\,\cdot\mid s,a)^\top v_P^\pi\big].
+\]
+Indeed the derivative of the Bellman right-hand side, with \(v_P^\pi\) held fixed, has just its \(s\)-th coordinate nonzero. Multiplication by \(\mu^\top(I-\gamma P_\pi)^{-1}\) supplies the factor \(d_P^\pi(s)/(1-\gamma)\).
+
+Let \(d_i=d_{P_i}^\pi\) and \(d=\sum_i\lambda_i d_i\). Since \(d_i(s)\geq(1-\gamma)\mu(s)>0\), the following weights define a whole row of a kernel \(\bar P\in K'\):
+\[
+ \bar P(\,\cdot\mid s,a)=
+ \sum_i\frac{\lambda_i d_i(s)}{d(s)}P_i(\,\cdot\mid s,a).
+\]
+The weights depend on \(s\) and are the same for every action in its row. The active kernels have the same value \(V\), so averaging their Bellman equations with these weights yields \(v_{\bar P}^\pi=V\). Meanwhile
+\[
+ d(t)=(1-\gamma)\mu(t)+\gamma\sum_{s,a}d(s)\pi(a\mid s)\bar P(t\mid s,a)
+\]
+follows by averaging the discounted flow identities with the original coefficients \(\lambda_i\). This equation has a unique solution, hence \(d=d_{\bar P}^\pi\). The displayed derivative formula, common value and occupancy identity now give
+\(\nabla J_{\bar P}(\pi)=\sum_i\lambda_i\nabla J_{P_i}(\pi)=g\) entrywise. The argument uses the subdifferential for \(K\) and only the values on \(\Pi\) for the convexified robust objective. Equality of those objectives off \(\Pi\) is unnecessary.
+
+\section{Comparison against a robust minimizer}
+Let \(\pi^\star\in\Pi\) minimize \(J\), which is continuous on the compact policy set. The kernel \(\bar P\) attains \(J(\pi)\) and belongs to \(K'\), so
+\[
+ J(\pi)-J(\pi^\star)\le J_{\bar P}(\pi)-J_{\bar P}(\pi^\star).
+\]
+Set \(Q(s,a)=c(s,a)+\gamma\bar P(\,\cdot\mid s,a)^\top V\)
+and \(b(s)=V(s)-\min_a Q(s,a)\). Each \(b(s)\) is nonnegative because \(V(s)=\sum_a\pi(a\mid s)Q(s,a)\). For the single kernel \(\bar P\), applying the resolvent under \(\pi^\star\) to the difference of Bellman equations gives
+\[
+\begin{split}
+ J_{\bar P}(\pi)-J_{\bar P}(\pi^\star)
+  &= \frac{1}{1-\gamma}\sum_s d_{\bar P}^{\pi^\star}(s)
+           \Big[V(s)-\sum_a\pi^\star(a\mid s)Q(s,a)\Big]\\
+  &\leq \frac{1}{1-\gamma}\sum_s d_{\bar P}^{\pi^\star}(s)b(s).
+\end{split}
+\]
+On the other hand separate minimization over policy rows yields
+\[
+ \max_{\pi'\in\Pi}\langle\pi-\pi',g\rangle
+ =\frac{1}{1-\gamma}\sum_s d(s)b(s).
+\]
+Now \(d_{\bar P}^{\pi^\star}(s)\leq1\) and \(d(s)\geq (1-\gamma)\mu(s)\). Comparing the nonnegative sums proves the asserted bound for this \(g\). The set of subgradients is the compact convex hull of active gradients, so the continuous gap attains its minimum there. Adding an outward feasible-set normal \(n\) to an ambient \(g\) would add the term \(\langle \pi-\pi',n\rangle\geq0\) for each \(\pi'\) and preserve the bound. The argument also includes \(\gamma=0\).
+
+\section{Prior work and scope}
+Robust dynamic programming for state-rectangular sets and fixed-kernel gradient dominance are established ingredients~\cite{WKR,HPW,A}. The additional step here treats every mixture of tied active gradients through a single feasible kernel of the convexified row set. The sufficient conditions of~\cite[Theorem~4.3]{K} require, at each policy, either a unique worst-case kernel or a robust action-value function that dominates the action-values of all active kernels. Their Proposition~5.1 exhibits one state-rectangular instance beyond those conditions. Their Appendix~B diagnoses earlier general-uncertainty arguments. Other state-rectangular dominance results for the inner kernel optimization, including Chen and Huang~\cite[Proposition~3]{CH}, concern a different variable with policy held fixed. The theorem above applies to arbitrary compact state-rectangular transition sets with fixed costs. It leaves unrestricted transition uncertainty and independently uncertain costs outside its scope.
+
+\section{Worked example}
+Use states \(0,1,2\), uniform \(\mu\), \(\gamma=1/2\), and equal action probabilities at all states. In each state allow either whole row
+\((a\mapsto 0,b\mapsto 2)\) or \((a\mapsto 2,b\mapsto 1)\).
+Give both actions cost \(3/16,3/16,7/16\), respectively in states \(0,1,2\). Both rows yield the same Bellman continuation at \(V=(1/2,1/2,3/4)\), so all eight row selections attain \(V\). The two kernels always using the first or the second row have occupancies \((5/12,1/6,5/12)\) and \((1/6,5/12,5/12)\). Their equally weighted gradient mixture therefore uses first-model weights \(5/7,2/7,1/2\) in the three convexified rows. Solving the flow identity gives \((7/24,7/24,5/12)\) as the new occupancy. This example exhibits why the gradient coefficient \(1/2\) in general becomes a different row coefficient at each state.
+
+\section*{Research disclosure}
+Under human direction, ChatGPT Astra 6.2 (OpenAI) generated the discovery proof and original replay packet. OpenAI Codex reviewed the mathematics and revised the manuscript. GPT-6.2 Sol checked the primary literature and prepared the worked example, executable replay, visual and release files. DannyExperiments maintains the repository and is the preferred citation identity. No AI system is proposed as an author.
+
+\begin{thebibliography}{9}
+\bibitem{K} T. Kitamura, A. Ghosh, A. Ayoub, T. D. Chu and C. Szepesv\'ari, Revisiting Subgradient Dominance in Robust MDPs: Counterexamples, Hardness, and Sufficient Conditions, \href{https://arxiv.org/abs/2604.21177v2}{arXiv:2604.21177v2}, 2026.
+\bibitem{WKR} W. Wiesemann, D. Kuhn and B. Rustem, Robust Markov Decision Processes, Math. Oper. Res. 38 (2013), 153--183. \href{https://doi.org/10.1287/moor.1120.0566}{doi:10.1287/moor.1120.0566}.
+\bibitem{HPW} C. P. Ho, M. Petrik and W. Wiesemann, Efficient Algorithms for Robust Markov Decision Processes with \(s\)-Rectangular Ambiguity Sets, \href{https://arxiv.org/abs/2602.05591}{arXiv:2602.05591}, 2026.
+\bibitem{A} A. Agarwal, S. M. Kakade, J. D. Lee and G. Mahajan, On the Theory of Policy Gradient Methods: Optimality, Approximation, and Distribution Shift, J. Mach. Learn. Res. 22, article 98 (2021). \href{https://www.jmlr.org/papers/v22/19-736.html}{Journal record}.
+\bibitem{CH} Z. Chen and H. Huang, Accelerated Policy Gradient for \(s\)-Rectangular Robust MDPs with Large State Spaces, PMLR 235 (2024), 6847--6880. \href{https://proceedings.mlr.press/v235/chen24s.html}{Proceedings record}.
+\end{thebibliography}
+\end{document}

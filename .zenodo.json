@@ -1,0 +1,30 @@
+{
+  "title": "Subgradient dominance under state-rectangular transition uncertainty",
+  "upload_type": "software",
+  "version": "1.0.0",
+  "publication_date": "2026-11-27",
+  "creators": [
+    {
+      "name": "DannyExperiments"
+    }
+  ],
+  "description": "A finite discounted robust Markov decision process with fixed costs, compact state-rectangular transition uncertainty and a full-support initial law satisfies subgradient dominance for every direct-policy Fréchet subgradient.\n\nStatewise Bellman evaluation makes all worst-case kernels share one value vector at the given policy. For each convex combination of active gradients, the proof reweights its full transition rows using the corresponding discounted occupancies. The resulting kernel belongs to a statewise convexification with the same robust objective on feasible policies. Its ordinary gradient equals the chosen subgradient. One fixed-kernel performance comparison then yields the bound with constant 1/[(1−γ) min μ(s)].\n\nThis establishes the fixed-cost form of the conjecture in Kitamura, Ghosh, Ayoub, Chu and Szepesvári, §5. Earlier robust dynamic programming, fixed-model dominance and kernel-side gradient results supply ingredients. The replay checks 300 exact mixtures, 2,400 fixed-model comparisons and a worked three-state example. The theorem leaves arbitrary nonrectangular transition sets and uncertain costs outside its scope. External peer review is pending.\n\nUnder human direction, ChatGPT Astra 6.2 (OpenAI) generated the discovery proof and original replay packet. OpenAI Codex reviewed the mathematics and revised the manuscript. GPT-6.2 Sol checked the primary literature and prepared the worked example, executable replay, visual and release files. DannyExperiments maintains the repository and is the preferred citation identity. No AI system is proposed as an author.",
+  "keywords": [
+    "robust Markov decision processes",
+    "state rectangularity",
+    "subgradient dominance",
+    "discounted occupancy",
+    "policy optimization",
+    "Frank–Wolfe gap"
+  ],
+  "access_right": "open",
+  "license": "other-closed",
+  "notes": "All rights reserved. Publicly downloadable files are supplied without a repository-wide reuse license.",
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/DannyExperiments/state-rectangular-subgradient-dominance/releases/tag/v1.0.0",
+      "relation": "isSupplementTo",
+      "resource_type": "software"
+    }
+  ]
+}
