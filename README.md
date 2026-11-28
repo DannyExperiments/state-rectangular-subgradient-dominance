@@ -1,6 +1,6 @@
 # Subgradient dominance under state-rectangular transition uncertainty
 
-[![Repository verification](https://github.com/DannyExperiments/state-rectangular-subgradient-dominance/actions/workflows/verify.yml/badge.svg?branch=main)](https://github.com/DannyExperiments/state-rectangular-subgradient-dominance/actions/workflows/verify.yml) [![Replay verification](https://github.com/DannyExperiments/state-rectangular-subgradient-dominance/actions/workflows/replay.yml/badge.svg?branch=main)](https://github.com/DannyExperiments/state-rectangular-subgradient-dominance/actions/workflows/replay.yml) [![PDF build](https://github.com/DannyExperiments/state-rectangular-subgradient-dominance/actions/workflows/pdf.yml/badge.svg?branch=main)](https://github.com/DannyExperiments/state-rectangular-subgradient-dominance/actions/workflows/pdf.yml) [![Version DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24572581.svg)](https://doi.org/10.5281/zenodo.24572581)
+[![Repository verification](https://github.com/DannyExperiments/state-rectangular-subgradient-dominance/actions/workflows/verify.yml/badge.svg?branch=main)](https://github.com/DannyExperiments/state-rectangular-subgradient-dominance/actions/workflows/verify.yml) [![Replay verification](https://github.com/DannyExperiments/state-rectangular-subgradient-dominance/actions/workflows/replay.yml/badge.svg?branch=main)](https://github.com/DannyExperiments/state-rectangular-subgradient-dominance/actions/workflows/replay.yml) [![PDF build](https://github.com/DannyExperiments/state-rectangular-subgradient-dominance/actions/workflows/pdf.yml/badge.svg?branch=main)](https://github.com/DannyExperiments/state-rectangular-subgradient-dominance/actions/workflows/pdf.yml) [![Version DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24572581.svg)](https://doi.org/10.5281/zenodo.24572581) [![Partial Lean verification](https://github.com/DannyExperiments/state-rectangular-subgradient-dominance/actions/workflows/lean.yml/badge.svg?branch=main)](https://github.com/DannyExperiments/state-rectangular-subgradient-dominance/actions/workflows/lean.yml)
 
 A finite discounted robust Markov decision process with fixed costs, compact state-rectangular transition uncertainty and a full-support initial law satisfies subgradient dominance for every direct-policy Fréchet subgradient. This includes the minimum over subgradients in the original conjecture.
 
@@ -30,3 +30,7 @@ The source’s two sufficient conditions cover restricted classes. Earlier effic
 ## Cite
 
 DannyExperiments. *Subgradient dominance under state-rectangular transition uncertainty*. Version 1.0.0, 27 November 2026. [Version DOI](https://doi.org/10.5281/zenodo.24572581).
+
+## Partial Lean verification
+
+For arbitrary finite state and model lists, rational weights and nonzero state normalizers, summing the occupancy-reweighted kernel row against state mass and policy equals the mixture of the incoming model flows, for a fixed action and destination. [Scope, source and replay](formalization/README.md)

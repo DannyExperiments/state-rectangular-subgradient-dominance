@@ -1,0 +1,38 @@
+name: Partial Lean verification
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    name: Occupancy-weighted incoming flow
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - name: Install the checksum-pinned Lean toolchain archive
+        run: |
+          set -euo pipefail
+          archive="$RUNNER_TEMP/lean-4.30.0-linux.tar.zst"
+          curl --fail --location --silent --show-error \
+            https://github.com/leanprover/lean4/releases/download/v4.30.0/lean-4.30.0-linux.tar.zst \
+            --output "$archive"
+          echo '4dad74141c2c119ca1aa626656be83b8e14238afba97271fd7bf1eb3f081b319  '"$archive" | sha256sum -c -
+          mkdir -p "$RUNNER_TEMP/lean-toolchain"
+          tar --use-compress-program=unzstd -xf "$archive" \
+            --strip-components=1 -C "$RUNNER_TEMP/lean-toolchain"
+          echo "$RUNNER_TEMP/lean-toolchain/bin" >> "$GITHUB_PATH"
+
+      - name: Check scoped theorems and their axiom reports
+        working-directory: formalization
+        run: |
+          set -eu
+          test "$(cat lean-toolchain)" = "leanprover/lean4:v4.30.0"
+          lean -DwarningAsError=true Q870Flow.lean > "$RUNNER_TEMP/axioms.txt"
+          diff -u expected-axioms.txt "$RUNNER_TEMP/axioms.txt"
